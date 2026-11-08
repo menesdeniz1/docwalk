@@ -60,7 +60,7 @@ export function headingText(heading: Heading): string {
   return toString(heading).replace(/\s+/g, " ").trim();
 }
 
-/** The Markdown tree. GitHub's math forms become `math` and `inlineMath` nodes (decision 89). */
+/** The Markdown tree. GitHub's math forms become `math` and `inlineMath` nodes (decision 101). */
 export function parseMarkdown(markdown: string): Root {
   const tree = unified().use(remarkParse).use(remarkGfm).use(remarkMath).parse(markdown);
   settleInlineMath(tree, markdown);

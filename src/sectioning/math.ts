@@ -8,7 +8,7 @@ import { visit } from "unist-util-visit";
  * remark-math finds `$…$` with none of the guards GitHub applies, so
  * `It costs $5 and $10` would parse as a formula, and `$a_b$` has to stay out
  * of Markdown's reach. This runs once on the parsed tree and settles each
- * single-dollar span (decision 89):
+ * single-dollar span (decision 101):
  *
  * - `` $`…`$ `` loses its backticks; they only keep Markdown out of the way.
  * - A plain `$…$` stays math only under Pandoc's rules, which GitHub follows:
@@ -36,7 +36,8 @@ export function settleInlineMath(tree: Root, source: string): void {
       const value = inner.slice(1, -1);
       node.value = value;
       // remark-rehype writes the node's `hChildren`, not `value`.
-      const code = node.data?.hChildren?.[0];
+      const data = node.data as { hChildren?: { type: string; value?: string }[] } | undefined;
+      const code = data?.hChildren?.[0];
       if (code?.type === "text") code.value = value;
       return;
     }

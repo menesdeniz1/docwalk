@@ -115,13 +115,15 @@ export interface ChunkNode {
  * own code imports them: opt-in modes far bigger than the rest of the app
  * (Monaco, decision 53; canvas mode, decision 54), and the code-block
  * grammars (decision 76: 24 languages, 2.2 MB, of which a document uses a
- * few). Precaching them would make every visitor download megabytes for
+ * few), and Temml and gemoji (decision 101). Precaching them would make every visitor download megabytes for
  * what most never open.
  */
 export const RUNTIME_CACHED_PACKAGES: readonly RegExp[] = [
   /\/node_modules\/(?:\.pnpm\/[^/]+\/node_modules\/)?monaco-editor\//,
   /\/node_modules\/(?:\.pnpm\/[^/]+\/node_modules\/)?@excalidraw\//,
   /\/node_modules\/(?:\.pnpm\/[^/]+\/node_modules\/)?@shikijs\/langs\//,
+  // Math and emoji shortcodes (decision 101): only a document that has one needs them.
+  /\/node_modules\/(?:\.pnpm\/[^/]+\/node_modules\/)?(?:temml|gemoji)\//,
 ];
 
 const ownSource = (id: string) => !id.startsWith("\0") && !id.includes("/node_modules/");
