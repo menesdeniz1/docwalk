@@ -1,6 +1,6 @@
 # docwalk Roadmap durumu
 
-Kaynak: `ROADMAP.md`, `main` = `77871a8`. Kapsam: tüm maddeler, sonsuz canvas fikri hariç (Roadmap'te yok). Site yayınlanmadı. İş devredildi, bu dosya devir anındaki durumdur.
+Kaynak: `ROADMAP.md`, `main` = `77871a8`. Kapsam: tüm maddeler, sonsuz canvas fikri hariç (Roadmap'te yok). Site yayınlanmadı. İş 2026-11-09'da durduruldu ve devredildi; bu dosya o anki durumdur.
 
 Durumlar: `yapıldı` (commit), `sürüyor` (bir branch'te yarım), `bekliyor` (başlanmadı), `atlandı` (sebep).
 `yalnız CI`: yerelde koşulmadı. "Birleşmedi": `feat/roadmap-next-up` içinde değil.
@@ -19,13 +19,13 @@ Durumlar: `yapıldı` (commit), `sürüyor` (bir branch'te yarım), `bekliyor` (
 | ID | Madde | Durum | Kanıt veya sebep |
 |---|---|---|---|
 | N1 | Konuşmacı notları | yapıldı | `9642add`, CI yeşil |
-| N2 | Kod, görsel, tablo odak görünümü ve satır vurgusu | yapıldı | `a6540ab`, karar 87; CI `1a0b168`: WebKit'te 1 test kırık (`e2e/focus-view.spec.ts:187`, axe `AbortError`), kalan 5 iş yeşil; düzeltilmedi |
-| N3 | Lazer, çizim ve odak aynalama | sürüyor | `6a68498`, `fbfef5c`, karar 88, `feat/roadmap-next-up` üzerinde. Kod, görsel, tablo odağı ve satır işaretleri aynalanmıyor; sunucu penceresi diyagram odağını göstermiyor. **Zorunlu Opus incelemesi yapılmadı.** CI kırmızı: run 42515099653, `e2e/app.spec.ts:138` üç motorda (aynalamanın kırdığı test) ve WebKit `e2e/focus-view.spec.ts:187` |
+| N2 | Kod, görsel, tablo odak görünümü ve satır vurgusu | yapıldı | `a6540ab`, karar 87; CI `1a0b168`: WebKit'te 1 test kırık (`e2e/focus-view.spec.ts`, axe öncesi `AbortError`), kalan 5 iş yeşil; düzeltilmedi. Olası neden ve sonraki adım: `handoff/notes/fix-focus-axe.md` |
+| N3 | Lazer, çizim ve odak aynalama | sürüyor | `6a68498`, `fbfef5c`, karar 88, `feat/roadmap-next-up` üzerinde. Kod, görsel, tablo odağı ve satır işaretleri aynalanmıyor; sunucu penceresi diyagram odağını göstermiyor. Opus incelemesi yapıldı: Critical ve High yok, `main`'den önce incelemenin M1 ve M2 bulguları düzeltilmeli (`handoff/notes/mirror-review.md`; bu kimlikler aşağıdaki Markdown satırları değildir). Düzeltme `wt/mirror-hardening` `ee0b406`: yalnız kırmızı testler. `e2e/app.spec.ts:138` düzeltildi (`aadee1b`) |
 | N4 | Geri sayım, tempo çubuğu, Wake Lock | yapıldı | `632bb0b`, düzeltme `dad88c9`, CI yeşil |
 | N5 | Palette tam metin arama | yapıldı | `313f7de`, CI `dad88c9` yeşil |
-| N6 | Bölüm seçimi, URL'de | sürüyor | `wt/sections` `b2ce91d` wip: karar ve testler, kod yok. Birleşmedi, CI koşmadı |
+| N6 | Bölüm seçimi, URL'de | sürüyor | `wt/sections` `66a8226` wip, karar 100: kod yazıldı. Chromium e2e 16/19; 3 test düzeltildi, yeniden koşmadı. Firefox, WebKit, lint koşmadı. Birleşmedi |
 | N7 | Kalıcı işaretler ve PDF/PNG dışa aktarma | bekliyor | Aynalama ile aynı dosyalar, inceleme sonrasına kaldı |
-| N8 | Matematik ve emoji | sürüyor | `wt/math-emoji` `9aded34` wip: bağımlılıklar ve ayrıştırma var, render ve emoji yok; `src/sectioning` testleri yerelde geçti, kalanı kırık olabilir. Birleşmedi, CI koşmadı |
+| N8 | Matematik ve emoji | sürüyor | `wt/math-emoji` `2fac1ca` wip, karar 101: render ve emoji yazıldı. Tarayıcı testleri 66/67 (kırık olan test hatası). e2e, perf, build, lint koşmadı; güvenlik incelemesi gerekir. Birleşmedi |
 | N9 | Mermaid diyagram turu | bekliyor | Aynalama ile aynı dosyalar |
 | N10 | Beyaz tahta, dikdörtgen ve elips, kalem algılama | bekliyor | Aynalama ile aynı dosyalar |
 
@@ -39,11 +39,11 @@ Durumlar: `yapıldı` (commit), `sürüyor` (bir branch'te yarım), `bekliyor` (
 
 | ID | Alan | Madde | Durum | Kanıt veya sebep |
 |---|---|---|---|---|
-| W1 | Workspace | Safari 26 öncesi ve özel pencere yedeği | atlandı | `wt/workspace` karar 89: bellek çalışma alanı sahte güven verir, worker yolu CSP ve precache ister. Birleşmedi |
-| W2 | Workspace | OPFS'te başka sekme düzenlemesi izlenmiyor | sürüyor | `7a3250a`; yerel testler geçti, son e2e düzeltmesi `0ff6835` koşmadı, CI koşmadı. Birleşmedi |
-| W3 | Workspace | `FileSystemObserver` yokken dosya değişimi yalnız odakta | sürüyor | `6d4fcd4`; yerel testler geçti, CI koşmadı. Birleşmedi |
-| W4 | Workspace | `navigator.storage.persist()` istenmiyor | sürüyor | `4923f9d`; yerel testler geçti, CI koşmadı. Birleşmedi |
-| W5 | Workspace | Yorum ve çizimin diskteki veya 5000 sınırı ötesi taşınmayı izlemesi | sürüyor | `4fbf5af` 5000 sınırı düzeldi; diskte adlandırma karar 92 ile sınırlı. CI koşmadı. Birleşmedi |
+| W1 | Workspace | Safari 26 öncesi ve özel pencere yedeği | atlandı | Karar 89: bellek çalışma alanı sahte güven verir, worker yolu CSP ve precache ister. Birleşti |
+| W2 | Workspace | OPFS'te başka sekme düzenlemesi izlenmiyor | yapıldı | `7a3250a`, karar 90, birleşti (`6f31dd6`). Chromium 15/15, Firefox 14 + 1 atlanan; WebKit Windows'ta OPFS yazamıyor, CI'a bağlı |
+| W3 | Workspace | `FileSystemObserver` yokken dosya değişimi yalnız odakta | yapıldı | `6d4fcd4`, karar 91, birleşti |
+| W4 | Workspace | `navigator.storage.persist()` istenmiyor | yapıldı | `4923f9d`, karar 91, birleşti |
+| W5 | Workspace | Yorum ve çizimin diskteki veya 5000 sınırı ötesi taşınmayı izlemesi | yapıldı | `4fbf5af`, karar 92, birleşti; diskte adlandırma karar 92 ile sınırlı |
 | A1 | Agents | e2e rölesi `worker/room.ts` kopyası, Miniflare ile çalıştırma | bekliyor | |
 | A2 | Agents | Gerçek soket oturumu yalnız Node 24 (`engines` >=22) | bekliyor | Node 22 gerekir |
 | A3 | Agents | Sunucudan önce katılan ajan veya telefon sayılmıyor | bekliyor | |
@@ -51,21 +51,21 @@ Durumlar: `yapıldı` (commit), `sürüyor` (bir branch'te yarım), `bekliyor` (
 | M1 | Markdown | Sanitizer külliyatı üç motorda | bekliyor | Karar 42 |
 | M2 | Markdown | Dipnot listesi devam sayfasında kalıyor | bekliyor | |
 | M3 | Markdown | Çapalar yalnız üst seviye başlıkları kapsıyor | bekliyor | |
-| C1 | Comments | Ölçeklenmiş slaytta işaretçi yok | sürüyor | `wt/comments` `43e6fb3` wip: karar 89, kod yok. Birleşmedi, CI koşmadı |
-| C2 | Comments | Silinen yorum için tombstone yok | sürüyor | Karar 90 ve kasıtlı kırık testler, kod yok |
-| C3 | Comments | Diyagram yer değişince düğüm yorumları yetim kalıyor | sürüyor | Karar 91 ve kasıtlı kırık testler, kod yok |
-| C4 | Comments | Yazar adı yok | sürüyor | Karar 92, sahip onayı gerekir, kod yok |
-| K1 | Canvas | axe iki Excalidraw denetimini dışlıyor | sürüyor | `wt/canvas` `890d463` wip: karar 89 ve testler, kod yok. Birleşmedi, CI koşmadı |
-| K2 | Canvas | Library kenar çubuğu dış bağlantısı | sürüyor | Karar 89 ve testler, kod yok |
-| K3 | Canvas | Saklanan çizimler temizlenmiyor | sürüyor | Karar 89, sahip onayı gerekir, kod yok |
-| K4 | Canvas | Silindir dikdörtgene dönüşüyor | sürüyor | Üst paket sınırı, karar 89'da yazılı, kod yok |
-| O1 | Monaco | İmleç satırı editör değişiminde taşınmıyor | sürüyor | `wt/monaco` `39889b0` wip: testler ve sözleşme alanı, kod yok. Birleşmedi, CI koşmadı |
-| O2 | Monaco | Monarch 4 boşluklu liste devamını kod sayıyor | sürüyor | Yalnız test |
-| O3 | Monaco | Paket 831 kB gzip | sürüyor | Ölçüldü, çıkarılabilir parça bulunmadı; karar satırı yazılmadı |
-| O4 | Monaco | Palette editör seçimi yok | sürüyor | Yalnız test |
-| P1 | PWA | F6 ile güncelleme bildirimine gitme doğrulanmadı | sürüyor | `wt/pwa` `cd1326d` wip: kod ve testler, hiç koşmadı, yalnız CI. Birleşmedi |
-| P2 | PWA | `file_handlers` yok | sürüyor | Aynı commit, koşmadı |
-| P3 | PWA | Periyodik güncelleme denetimi yok | sürüyor | Aynı commit, koşmadı |
+| C1 | Comments | Ölçeklenmiş slaytta işaretçi yok | sürüyor | `wt/comments` `501aab0` wip, karar 94: kod var, tarayıcı testi ve e2e yazılmadı. Birleşmedi |
+| C2 | Comments | Silinen yorum için tombstone yok | sürüyor | Karar 95: kod var, birim 74 ve tarayıcı 34 test geçti; `src/workspace` testleri koşmadı |
+| C3 | Comments | Diyagram yer değişince düğüm yorumları yetim kalıyor | sürüyor | Karar 96: kod var, e2e yok |
+| C4 | Comments | Yazar adı yok | sürüyor | Karar 97, sahip onayı gerekir: kod var, e2e yok |
+| K1 | Canvas | axe iki Excalidraw denetimini dışlıyor | sürüyor | `wt/canvas` `82ab879`, karar 98: kod bitti, axe dışlaması kalktı. Chromium e2e 7/7; Firefox ve WebKit koşmadı. Birleşmedi |
+| K2 | Canvas | Library kenar çubuğu dış bağlantısı | sürüyor | Aynı branch: "Browse libraries" gizli, Publish formu kaldı |
+| K3 | Canvas | Saklanan çizimler temizlenmiyor | sürüyor | Aynı branch: "Saved sketches" paneli; yeri ve metni sahip onayı ister |
+| K4 | Canvas | Silindir dikdörtgene dönüşüyor | sürüyor | Üst paket sınırı, karar 98'de yazılı, kod gerekmez |
+| O1 | Monaco | İmleç satırı editör değişiminde taşınmıyor | sürüyor | `wt/monaco` `293532e` wip: `initialLine` iki editörde var, `App.tsx` bağlantısı yok, 1 CodeMirror testi kırık. Birleşmedi |
+| O2 | Monaco | Monarch 4 boşluklu liste devamını kod sayıyor | sürüyor | Kendi gramerimiz yazıldı, tarayıcı testleri geçiyor |
+| O3 | Monaco | Paket 831 kB gzip | sürüyor | Kanıt ve karar 102 yazılmadı |
+| O4 | Monaco | Palette editör seçimi yok | sürüyor | Komut ve metinler yazılmadı |
+| P1 | PWA | F6 ile güncelleme bildirimine gitme doğrulanmadı | sürüyor | `wt/pwa` `751cee6`, karar 99: F6 çalışmıyordu, düzeltildi. e2e Chromium 12, Firefox 10 + 2 atlanan, WebKit 10 + 2 atlanan. Son düzenlemeden sonra birim, tarayıcı, typecheck koşmadı. Birleşmedi |
+| P2 | PWA | `file_handlers` yok | sürüyor | Aynı branch; gerçek dosya açma denenmedi, yalnız e2e taklidi |
+| P3 | PWA | Periyodik güncelleme denetimi yok | sürüyor | Aynı branch |
 | Q1 | CI | Mutasyon artıkları, `fragment.ts` şema reddi testi | bekliyor | |
 | Q2 | CI | Lighthouse SEO 0.82, bütçesiz | bekliyor | |
 | Q3 | CI | `e2e/app.spec.ts` WebKit bir kez kırıldı, `App.tsx` `?? 1` ipucu | bekliyor | |
@@ -98,7 +98,7 @@ Durumlar: `yapıldı` (commit), `sürüyor` (bir branch'te yarım), `bekliyor` (
 | H1 | Repo ayarları (zafiyet bildirimi, secret scanning, ruleset, konu etiketleri) | atlandı | Sahip erişimi |
 | H2 | `v0.1.0` etiketi | atlandı | Sahip kararı ve erişimi |
 | H3 | Cloudflare yayını | atlandı | Sahibin gizli anahtarları |
-| H4 | zizmor çevrimiçi denetimleri, action etiket yaşları | bekliyor | Etiket yaşları `gh` ile denetlenebilir |
+| H4 | zizmor çevrimiçi denetimleri, action etiket yaşları | sürüyor | Etiketlerin 7'si de SHA ile eşleşiyor (`handoff/notes/actions-audit.md`). `pnpm/action-setup` v6.1.1 tarihi 2026-11-03. Çevrimiçi denetimler kapalı (`--offline`, token yok) |
 | H5 | Gerçek diskte `showDirectoryPicker` | atlandı | Gerçek kullanıcı izni diyaloğu otomasyonla sınanamıyor |
 | H6 | `vite-plugin-pwa` dışarıda kalıyor | atlandı | Yapılacak iş değil, `trustPolicy` kararı |
 
@@ -113,5 +113,5 @@ Yeni özellikler ROADMAP'e bunları ekledi.
 | X3 | Hedef süre çalışırken değişmiyor; pencere kapanınca geri sayım bitiyor | bekliyor | Karar 80 ile bilinçli |
 | X4 | Telefon ve takip sayfasında saat ve çubuk yok | bekliyor | |
 | X5 | Arama: diyagram etiketleri, Türkçe aksan, tek ifade | bekliyor | Karar 81 ile bilinçli |
-| X6 | `pnpm size` Windows'ta çıktısız exit 1 (`tooling/size-check.ts`) | sürüyor | `wt/pwa` `cd1326d`, koşmadı, Windows'ta denenmedi |
+| X6 | `pnpm size` Windows'ta çıktısız exit 1 (`tooling/size-check.ts`) | sürüyor | `wt/pwa` `751cee6`: Windows'ta çalıştı, 415.2 kB gzip, çıkış 0. Birleşmedi |
 | X7 | macOS'ta palet kısayolunun erişilebilir adı değiştirici tuş içermiyor | bekliyor | |
