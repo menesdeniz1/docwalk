@@ -206,8 +206,9 @@ test("Monaco's own panels speak English to an English viewer", async ({ page }) 
   await pickEditor(page, "Monaco");
   await page.locator(".monaco-editor .view-line").first().click();
   await page.keyboard.press("ControlOrMeta+f");
-  await expect(page.locator(".monaco-editor .find-widget").getByRole("textbox", { name: "Find" }))
-    .toBeVisible();
+  await expect(
+    page.locator(".monaco-editor .find-widget").getByRole("textbox", { name: "Find" }),
+  ).toBeVisible();
 });
 
 test.describe("a browser that prefers Turkish", () => {

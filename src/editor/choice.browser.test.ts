@@ -2,12 +2,7 @@ import { createElement } from "react";
 import { flushSync } from "react-dom";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, describe, expect, test } from "vitest";
-import {
-  EDITOR_KEY,
-  readEditorChoice,
-  setEditorChoice,
-  useStoredEditorChoice,
-} from "./choice";
+import { EDITOR_KEY, readEditorChoice, setEditorChoice, useStoredEditorChoice } from "./choice";
 
 let root: Root | null = null;
 let host: HTMLElement | null = null;

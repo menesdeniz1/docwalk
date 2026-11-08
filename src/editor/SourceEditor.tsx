@@ -50,6 +50,7 @@ export function SourceEditor({
   value,
   onChange,
   onCursorLine,
+  initialLine,
   revealLine,
   diagnostics,
   label,
@@ -69,7 +70,7 @@ export function SourceEditor({
   useLayoutEffect(() => {
     callbacks.current = { onChange, onCursorLine };
   });
-  const initial = useRef({ value, label });
+  const initial = useRef({ value, label, line: initialLine });
   const labelRef = useRef(label);
   const diagnosticsRef = useRef(diagnostics);
   const documentRef = useRef(documentId);
@@ -109,7 +110,20 @@ export function SourceEditor({
         ],
       });
     stateFor.current = create;
-    const view = new EditorView({ parent: host, state: create(initial.current.value) });
+    // The shell can pass the line to start on (an editor switch keeps the
+    // viewer's place); like a reveal, it lands in the middle of the pane.
+    let state = create(initial.current.value);
+    const start = clampLine(initial.current.line ?? 1, state.doc.lines) ?? 1;
+    if (start > 1) {
+      state = state.update({ selection: { anchor: state.doc.line(start).from } }).state;
+      // The shell passed this line in; reporting it back would not be a move.
+      lastLineRef.current = start;
+    }
+    const view = new EditorView({ parent: host, state });
+    if (start > 1)
+      view.dispatch({
+        effects: EditorView.scrollIntoView(state.selection.main.head, { y: "center" }),
+      });
     syncedRef.current = initial.current.value;
     viewRef.current = view;
     return () => {

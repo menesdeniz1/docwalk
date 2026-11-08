@@ -60,11 +60,7 @@ const cases: [name: string, source: string, code: number[]][] = [
     [],
   ],
   ["a nested bullet at four spaces is a list item", "- item\n    - nested bullet\n", []],
-  [
-    "four spaces after a plain paragraph is still code",
-    "Paragraph\n\n    real code\n",
-    [3],
-  ],
+  ["four spaces after a plain paragraph is still code", "Paragraph\n\n    real code\n", [3]],
   [
     "code indented deeper inside a list item is code",
     "- item\n\n        code inside the item\n",
